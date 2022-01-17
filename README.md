@@ -12,7 +12,7 @@ The Action Spotting dataset consists of 500 complete soccer games including:
  - Pre-computed features such as ResNET-152.
  - Annotations of camera changes and replays with live action spot (Labels-cameras.json).
 
-Participate in our upcoming Challenge in the [CVPR 2022 International Challenge on Activity Recognition Workshop](http://activity-net.org/challenges/2021/index.html) and try to win up to 500$ sponsored by [SportRadar](https://www.sportradar.com/)! All details can be found on the [challenge website](https://eval.ai/web/challenges/challenge-page/761/overview), or on the [main page](https://soccer-net.org/).
+Participate in our upcoming Challenge in the [CVPR 2022 International Challenge on Activity Recognition Workshop](http://activity-net.org/challenges/2021/index.html) and try to win up to 500$ sponsored by [SportRadar](https://www.sportradar.com/)! All details can be found on the [challenge website](), or on the [main page](https://soccer-net.org/).
 
 The participation deadline is fixed at the 30th of May 2022.
 The official rules and guidelines are available on [ChallengeRules.md](ChallengeRules.md).
@@ -26,37 +26,64 @@ The official rules and guidelines are available on [ChallengeRules.md](Challenge
 This table summarizes the current performances on the 2021 challenge. 
 For the leaderboard on the 2022 challenge, please visit EvalAI [test](https://eval.ai/web/challenges/challenge-page/761/leaderboard/2072) and [challenge](https://eval.ai/web/challenges/challenge-page/761/leaderboard/2074) leaderboards.
 
-| Model     | tight Avg-mAP (challenge)  | Avg-mAP (challenge) | tight Avg-mAP (test)  | Avg-mAP (test) |
+| Model     | tight Avg-AP (challenge)  | Avg-AP (challenge) | tight Avg-AP (test)  | Avg-AP (test) |
 | ----------| -------- | -------- | -------- | -------- |
-|||||  |
-||  |  |  |  |
+|[Baidu Research](https://arxiv.org/pdf/2106.14447.pdf)| TBD | 71.90% | TBD | 76.00% |
+|[OPPO]()| TBD | 63.91% | NA | NA |
+|[Xinhuazhiyun]()| TBD | 41.08% | NA | NA |
+|[CALF_more_negatives](Benchmarks)| TBD | 40.75% | NA | NA |
+|[CALF](Benchmarks)| TBD | 31.28 | TBD | 32.39% |
+|[NetVLAD](Benchmarks)| TBD | 25.13% | TBD | 24.57% |
 
 ### Published research benchmark
 
 This table summarizes the current performances of published methods only.  Last update January 2022.
 
-| Model     | tight Avg-mAP (challenge)  | Avg-mAP (challenge) | tight Avg-mAP (test)  | Avg-mAP (test) |
+| Model     | tight Avg-AP (challenge)  | Avg-AP (challenge) | tight Avg-AP (test)  | Avg-AP (test) |
 | ----------| -------- | -------- | -------- | -------- |
-||  |  |  |  |
-||  |  |  |  |
+|[CALF_more_negatives](Benchmarks)| TBD | 40.75% | NA | NA |
+|[CALF](Benchmarks)| TBD | 31.28 | TBD | 32.39% |
+|[NetVLAD](Benchmarks)| TBD | 25.13% | TBD | 24.57% |
 
-## How to download SoccerNet-v2 
+## How to download the dataset
 
 A [SoccerNet pip package](https://pypi.org/project/SoccerNet/) to easily download the data and the annotations is available. 
 
 To install the pip package simply run:
 
 <code>pip install SoccerNet</code>
+To install the pip package simply run:
 
-Please follow the instructions provided in the [Download](Download) folder of this repository. Do also mind that signing an Non-Disclosure agreement (NDA) is required to access the LQ and HQ videos: [NDA](https://docs.google.com/forms/d/e/1FAIpQLSfYFqjZNm4IgwGnyJXDPk2Ko_lZcbVtYX73w5lf6din5nxfmA/viewform).
+<code>pip install SoccerNet</code>
 
+Then use the API to downlaod the data of interest:
+
+```
+from SoccerNet.Downloader import SoccerNetDownloader
+mySoccerNetDownloader = SoccerNetDownloader(LocalDirectory="/path/to/SoccerNet")
+mySoccerNetDownloader.downloadGames(files=["Labels-cameras.json"], split=["train","valid","test"])
+```
+
+If you want to download the videos, you will need to fill a NDA to get the password.
+
+```
+mySoccerNetDownloader.password = input("Password for videos?:\n")
+mySoccerNetDownloader.downloadGames(files=["1_224p.mkv", "2_224p.mkv"], split=["train","valid","test","challenge"])
+mySoccerNetDownloader.downloadGames(files=["1_720p.mkv", "2_720p.mkv", "video.ini"], split=["train","valid","test","challenge"])
+```
+We provide several features including ResNET (used for our [benchmarks](Benchmarks)), and last year's winners features from [Baidu Research](https://arxiv.org/pdf/2106.14447.pdf). Check out our [pip package](https://pypi.org/project/SoccerNet/) documentation for more features.
+```
+mySoccerNetDownloader.password = input("Password for videos?:\n")
+mySoccerNetDownloader.downloadGames(files=["1_ResNET_TF2_PCA512.npy.mkv", "2_ResNET_TF2_PCA512.npy.mkv"], split=["train","valid","test","challenge"])
+mySoccerNetDownloader.downloadGames(files=["1_baidu_soccer_embeddings.npy", "2_baidu_soccer_embeddings.npy.mkv", "video.ini"], split=["train","valid","test","challenge"])
+```
 ## How to extract video features 
 
-As it was one of the most requested features on SoccerNet-V1, check out the action spotting repository to extract the features.
+As it was one of the most requested features on SoccerNet-V1, check out the [action spotting repository](https://github.com/SoccerNet/sn-spotting/Features) to extract the features.
 
 ## Benchmark Implementations
 
-This repository contains several [benchmarks](Task1-ActionSpotting) for replay grounding, which are presented in the [SoccerNet-V2 paper](https://arxiv.org/pdf/2011.13367.pdf). You can use these codes to build upon our methods and improve the performances.
+This repository contains several [benchmarks](Benchmarks) for replay grounding, which are presented in the [SoccerNet-V2 paper](https://arxiv.org/pdf/2011.13367.pdf). You can use these codes to build upon our methods and improve the performances.
 
 
 ## Evaluation
