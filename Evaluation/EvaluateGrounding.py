@@ -16,10 +16,12 @@ if __name__ == '__main__':
                         help='Name of the prediction files as stored in folder (or zipped file) [None=try to infer it]', default=None)
     parser.add_argument('--split',   required=False, type=str,
                         default="test", help='Set on which to evaluate the performances')
+    parser.add_argument('--metric', required=False, type=str,
+                        help='tight (tight average mAP 2022) or loose (average mAP 2021)', default="tight")
 
     args = parser.parse_args()
 
     results = evaluate(SoccerNet_path=args.SoccerNet_path, Predictions_path=args.Predictions_path,
-                    split=args.split, prediction_file=args.Prediction_file)
+                    split=args.split, prediction_file=args.Prediction_file, metric=args.metric)
 
-    print("Average AP: ", results["a_AP"])
+    print("tight Average AP: ", results["a_AP"])
