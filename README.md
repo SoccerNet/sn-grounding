@@ -52,9 +52,6 @@ A [SoccerNet pip package](https://pypi.org/project/SoccerNet/) to easily downloa
 To install the pip package simply run:
 
 <code>pip install SoccerNet</code>
-To install the pip package simply run:
-
-<code>pip install SoccerNet</code>
 
 Then use the API to downlaod the data of interest:
 
