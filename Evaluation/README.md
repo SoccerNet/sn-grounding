@@ -2,6 +2,8 @@
 
 We provide evaluation functions directly integrated in our pip package (`pip install SoccerNet`) as well as an evaluation server on [EvalAI](https://eval.ai/web/challenges/challenge-page/761/overview).
 
+The 2022 challenges introduce the new tight average-mAP. You can choose which metric to use with the <code>--metric</code> argument in the function.
+
 ## Ouput Format
 
 To submit your results on EvalAI or to use the integreted function of the pip package, the predictions of the network have to be saved in a specific format, with a specific folder structure.
@@ -11,50 +13,11 @@ Results.zip
  - league
    - season
      - game full name
-       - results_spotting.json
-       - results_segmentation.json
        - results_grounding.json
 ```
 
-### Task 1: `results_spotting.json`
 
-For the action spotting task, each json file needs to be constructed as follows:
-
-```json
-{
-    "UrlLocal": "england_epl/2014-2015/2015-05-17 - 18-00 Manchester United 1 - 1 Arsenal",
-    "predictions": [ # list of predictions
-        {
-            "gameTime": "1 - 0:31", # format: "{half} - {minutes}:{seconds}",
-            "label": "Ball out of play", # label for the spotting,
-            "position": "31500", # time in milliseconds,
-            "half": "1", # half of the game
-            "confidence": "0.006630070507526398", # confidence score for the spotting,
-        },
-        {
-            "gameTime": "1 - 0:39",
-            "label": "Foul",
-            "position": "39500",
-            "half": "1",
-            "confidence": "0.07358131557703018"
-        },
-        {
-            "gameTime": "1 - 0:55",
-            "label": "Foul",
-            "position": "55500",
-            "half": "1",
-            "confidence": "0.20939764380455017"
-        },
-        ...
-    ]
-}
-```
-
-### Task 2: `results_segmentation.json`
-
-TBD
-
-### Task 3: `results_grounding.json`
+### `results_grounding.json`
 
 For the replay grounding task, each json file needs to be constructed as follows:
 
@@ -136,29 +99,6 @@ For the replay grounding task, each json file needs to be constructed as follows
 ```
 ## How to evaluate locally the performances on the testing set
 
-### Task 1: Spotting
-
-```bash
-python EvaluateSpotting.py --SoccerNet_path /path/to/SoccerNet/ --Predictions_path /path/to/SoccerNet/outputs/
-```
-
-```python
-from SoccerNet.Evaluation.ActionSpotting import evaluate
-results = evaluate(SoccerNet_path=PATH_DATASET, Predictions_path=PATH_PREDICTIONS,
-                   split="test", version=2, prediction_file="results_spotting.json")
-
-print("Average mAP: ", results["a_mAP"])
-print("Average mAP per class: ", results["a_mAP_per_class"])
-print("Average mAP visible: ", results["a_mAP_visible"])
-print("Average mAP visible per class: ", results["a_mAP_per_class_visible"])
-print("Average mAP unshown: ", results["a_mAP_unshown"])
-print("Average mAP unshown per class: ", results["a_mAP_per_class_unshown"])
-```
-
-### Task 2: Segmentation
-
-TBD
-
 ### Task 3: Grounding
 
 ```bash
@@ -169,14 +109,14 @@ python EvaluateGrounding.py --SoccerNet_path /path/to/SoccerNet/ --Predictions_p
 from SoccerNet.Evaluation.ReplayGrounding import evaluate
 
 results = evaluate(SoccerNet_path=PATH_DATASET, Predictions_path=PATH_PREDICTIONS,
-                   split="test", version=2, prediction_file="results_grounding.json")
+                   split="test", version=2, prediction_file="results_grounding.json", metric="tight")
 
-print("Average mAP: ", results["a_mAP"])
-print("Average mAP per class: ", results["a_mAP_per_class"])
-print("Average mAP visible: ", results["a_mAP_visible"])
-print("Average mAP visible per class: ", results["a_mAP_per_class_visible"])
-print("Average mAP unshown: ", results["a_mAP_unshown"])
-print("Average mAP unshown per class: ", results["a_mAP_per_class_unshown"])
+print("tight Average mAP: ", results["a_mAP"])
+print("tight Average mAP per class: ", results["a_mAP_per_class"])
+print("tight Average mAP visible: ", results["a_mAP_visible"])
+print("tight Average mAP visible per class: ", results["a_mAP_per_class_visible"])
+print("tight Average mAP unshown: ", results["a_mAP_unshown"])
+print("tight Average mAP unshown per class: ", results["a_mAP_per_class_unshown"])
 ```
 
 ## How to evaluate online the performances on the challenge
@@ -185,8 +125,6 @@ print("Average mAP unshown per class: ", results["a_mAP_per_class_unshown"])
 
 ```bash
 cd /path/to/soccernet/outputs/
-zip results_spotting.zip */*/*/results_spotting.json
-zip results_segmentation.zip */*/*/results_segmentation.json
 zip results_grounding.zip */*/*/results_grounding.json
 ```
 
