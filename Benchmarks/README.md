@@ -1,10 +1,9 @@
 # SoccerNet-v2 - Replay Grounding
 
-This repository contains the code to reproduce the replay grounding result of the paper: "SoccerNet-v2 : A Dataset and Benchmarks for Holistic Understanding of Broadcast Soccer Videos" with two three baslines:
+This repository contains the code to reproduce the replay grounding result of the paper: "SoccerNet-v2 : A Dataset and Benchmarks for Holistic Understanding of Broadcast Soccer Videos" with several baselines.
 
- CALF method adapted to the 17 classes of SoccerNet-v2. The SoccerNet-v2 paper can be found here: [SoccerNet-v2 paper](https://arxiv.org/pdf/2011.13367.pdf), and the CALF paper "A Context-Aware Loss Function for Action Spotting in Soccer Videos" here: [CALF paper](https://openaccess.thecvf.com/content_CVPR_2020/papers/Cioppa_A_Context-Aware_Loss_Function_for_Action_Spotting_in_Soccer_Videos_CVPR_2020_paper.pdf).
-
-
+Note that these benchmarks still use the 2021 average-mAP metric, not the tight average-mAP of 2022. The option to use the second metric will be added in a future release.
+ 
 ```bibtex
 @InProceedings{Deliege2020SoccerNetv2,
   author = { Deliège, Adrien and Cioppa, Anthony and Giancola, Silvio and Seikavandi, Meisam J. and Dueholm, Jacob V. and Nasrollahi, Kamal and Ghanem, Bernard and Moeslund, Thomas B. and Van Droogenbroeck, Marc},
