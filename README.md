@@ -28,7 +28,7 @@ For the leaderboard on the 2022 challenge, please visit EvalAI [test](https://ev
 
 | Model     | tight Avg-AP (challenge)  | Avg-AP (challenge) | tight Avg-AP (test)  | Avg-AP (test) |
 | ----------| -------- | -------- | -------- | -------- |
-|[Baidu Research](https://arxiv.org/pdf/2106.14447.pdf)| TBD | 71.90% | TBD | 76.00% |
+|[Baidu Research](https://arxiv.org/pdf/2106.14447.pdf)| TBD | 71.90% | 25.55% | 76.00% |
 |[OPPO]()| TBD | 63.91% | NA | NA |
 |[Xinhuazhiyun]()| TBD | 41.08% | NA | NA |
 |[CALF_more_negatives](Benchmarks)| TBD | 40.75% | NA | NA |
