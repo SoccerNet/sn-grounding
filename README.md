@@ -76,7 +76,7 @@ mySoccerNetDownloader.downloadGames(files=["1_baidu_soccer_embeddings.npy", "2_b
 ```
 ## How to extract video features 
 
-As it was one of the most requested features on SoccerNet-V1, check out the [action spotting repository](https://github.com/SoccerNet/sn-spotting/Features) to extract the features.
+As it was one of the most requested features on SoccerNet-V1, check out the [action spotting repository](https://github.com/SoccerNet/sn-spotting/tree/main/Features) to extract the features.
 
 ## Benchmark Implementations
 
